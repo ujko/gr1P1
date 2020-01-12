@@ -8,9 +8,11 @@ import java.util.Arrays;
  */
 public class Powtorki {
 
+    private static int a;
+
     public static void main(String...args) {
-
-
+        new Powtorki().metoda1(3);
+        a = 5;
 //        int a = 5;
 //        int[] b = {2,3,4,5};
 //        metoda1(a);
@@ -29,7 +31,7 @@ public class Powtorki {
     }
 
 
-    private static void metoda1(int a) {
+    private void metoda1(int a) {
         a = 10;
     }
 

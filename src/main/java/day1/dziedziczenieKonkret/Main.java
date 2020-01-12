@@ -5,6 +5,13 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
+        Animal a = new Cat();
+        a.wypisz();
+        ((Cat) a).wypiszCat();
+//        przelicz();
+    }
+
+    private static void przelicz() {
         Ksztalt kolo = new Kolo();
         kolo.setA(4);
 
