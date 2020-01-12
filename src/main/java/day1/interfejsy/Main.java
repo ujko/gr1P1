@@ -6,13 +6,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Samochod s = () -> System.out.println("teraz taki wpis ") ;
+        Samochod s = () -> System.out.println("syrenka ") ;
         Samochod b = new Bmw();
         Samochod c = new Fiat();
         List<Samochod> samochody = List.of(s, b,c);
         samochody.forEach(Samochod::wypisz);
-        
-
 
 //        Samochod s = new Samochod() {
 //            @Override
