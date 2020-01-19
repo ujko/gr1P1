@@ -1,0 +1,60 @@
+package day3.daoExample.utils;
+
+
+import day3.daoExample.model.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+public class CsvUtils {
+
+    private static String ioFilePath = getFilePath();
+    private static Logger logger = LoggerFactory.getLogger("CsvUtils");
+
+
+    public static Map<Integer, Person> readCsvFile() throws IOException {
+        List<String> listWithPerson = Files.lines(Paths.get(ioFilePath))
+                .collect(Collectors.toList());
+        Map<Integer, Person> result = new HashMap<>();
+        String pattern = "([\\d]+),([A-Za-z\\s\\-\\']+)," +
+                "([A-Za-z\\-\\'\\s]+),([A-Za-z_0-9]+@[A-Za-z_0-9\\.\\-]+),(Female|Male),([\\d\\.]+)";
+        Pattern regexPattern = Pattern.compile(pattern);
+        for (String line : listWithPerson) {
+            Matcher matcher = regexPattern.matcher(line);
+            if (matcher.find()) {
+                Person p = new Person();
+                p.setId(Integer.parseInt(matcher.group(1)))
+                        .setFirstName(matcher.group(2))
+                        .setLastName(matcher.group(3))
+                        .setEmail(matcher.group(4))
+                        .setGender(matcher.group(5))
+                        .setIpAddress(matcher.group(6));
+                result.put(p.getId(), p);
+                logger.debug(p.getPersonInCsvFormat());
+            } else {
+//                System.out.println("Line was not added: " + line);
+                logger.info("Line was not added: " +line);
+            }
+        }
+        return result;
+    }
+
+    public static void saveToFile (List<Person> list) throws IOException {
+        List<String> listTmp = list.stream().map(Person::getPersonInCsvFormat).collect(Collectors.toList());
+        listTmp.add(0,"id,first_name,last_name,email,gender,ip_address");
+        Files.write(Paths.get(ioFilePath),listTmp);
+    }
+
+    private static String getFilePath() {
+        return FileUtils.pobierzProperty();
+    }
+}
