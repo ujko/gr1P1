@@ -22,8 +22,11 @@ public class Person {
     }
 
     public Person setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
+        if (firstName.matches("[A-Za-z\\s\\-\\']+")) {
+            this.firstName = firstName;
+            return this;
+        }
+        throw new IllegalArgumentException("Illegal parameter " + firstName);
     }
 
     public String getLastName() {

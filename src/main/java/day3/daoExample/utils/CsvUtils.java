@@ -21,7 +21,7 @@ public class CsvUtils {
     private static Logger logger = LoggerFactory.getLogger("CsvUtils");
 
 
-    public static Map<Integer, Person> readCsvFile() throws IOException {
+    public static Map<Integer, Person> loadCsvFileToMap() throws IOException {
         List<String> listWithPerson = Files.lines(Paths.get(ioFilePath))
                 .collect(Collectors.toList());
         Map<Integer, Person> result = new HashMap<>();
@@ -30,7 +30,7 @@ public class CsvUtils {
         Pattern regexPattern = Pattern.compile(pattern);
         for (String line : listWithPerson) {
             Matcher matcher = regexPattern.matcher(line);
-            if (matcher.find()) {
+            if (matcher.matches()) {
                 Person p = new Person();
                 p.setId(Integer.parseInt(matcher.group(1)))
                         .setFirstName(matcher.group(2))
@@ -48,10 +48,14 @@ public class CsvUtils {
         return result;
     }
 
-    public static void saveToFile (List<Person> list) throws IOException {
+    public static void saveToFile(List<Person> list) {
         List<String> listTmp = list.stream().map(Person::getPersonInCsvFormat).collect(Collectors.toList());
         listTmp.add(0,"id,first_name,last_name,email,gender,ip_address");
-        Files.write(Paths.get(ioFilePath),listTmp);
+        try {
+            Files.write(Paths.get(ioFilePath),listTmp);
+        } catch (IOException e) {
+            System.out.println("Unable to save to file");;
+        }
     }
 
     private static String getFilePath() {
