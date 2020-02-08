@@ -1,6 +1,8 @@
 package day3.daoExample.model;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private int id;
     private String firstName;
     private String lastName;
