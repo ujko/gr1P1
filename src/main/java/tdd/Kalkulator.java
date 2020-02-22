@@ -12,6 +12,14 @@ public class Kalkulator {
         return c;
     }
 
+    public double add(double a, double b) {
+        return a + b;
+    }
+
+    public double divide(int a, int b) {
+        return (double) a / (double) b;
+    }
+
 
     public String doSth(String name) {
         return name == null || "".equals(name) ? "brak stringu" : name;

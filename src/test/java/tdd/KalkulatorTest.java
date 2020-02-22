@@ -72,4 +72,9 @@ class KalkulatorTest {
         assertEquals("brak stringu", kalkulator.doSth(name));
     }
 
+    @Test
+    void add2_test1() {
+        assertEquals(0.3, kalkulator.add(0.1, 0.2), 0.001) ;
+    }
+
 }

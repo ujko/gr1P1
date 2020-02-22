@@ -14,6 +14,11 @@ public class Person implements Serializable {
         return id;
     }
 
+    public Person empty() {
+        id = -1;
+        return this;
+    }
+
     public Person setId(int id) {
         this.id = id;
         return this;
