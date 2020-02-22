@@ -9,7 +9,7 @@ public class SitoEratostenesa {
 
     }
 
-    private boolean[] createTableWithSth(int length) {
+    boolean[] createTableWithSth(int length) {
         boolean[] tableOfbooleans = new boolean[length];
         for (int i = 2; i < length; i++) {
             tableOfbooleans[i] = true;
@@ -17,7 +17,7 @@ public class SitoEratostenesa {
         return tableOfbooleans;
     }
 
-    private boolean[] doSito(boolean[] table) {
+    boolean[] doSito(boolean[] table) {
         for (int i = 2; i < table.length; i++) {
             if (table[i] == true) {
                 for (int j = i * 2; j < table.length; j += i) {
